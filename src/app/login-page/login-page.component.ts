@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class LoginPageComponent {
 
+  submitFormValue(form: UntypedFormGroup) {
+    console.log('submit form value :', form.value);
+  }
 }

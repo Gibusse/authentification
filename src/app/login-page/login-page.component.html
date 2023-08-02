@@ -1,1 +1,19 @@
-<p>login-page works!</p>
+<div class="container-fluid ps-md-0">
+  <div class="row g-o">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6 p-0">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="d-flex justify-content-around">
+            <div class="col-md-9 col-lg-8">
+              <h1 class="d-flex justify-content-center mb-0">Créer son compte</h1>
+                <app-forms (emitFormValue)="submitFormValue($event)"></app-forms>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
