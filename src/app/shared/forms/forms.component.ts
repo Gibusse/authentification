@@ -26,10 +26,6 @@ export class FormsComponent {
 
   constructor(private formBuilder: UntypedFormBuilder) {}
 
-  ngOninit() {
-
-  }
-
   public get f() {
     return this.form.controls;
   }
