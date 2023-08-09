@@ -1,0 +1,74 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+  <div class="col-xs-6 md-6">
+    <div class="form-group has-clear">
+      <label for="form-group-input-clear">Adresse courriel</label>
+      <div class="input-group-icon">
+        <input
+          type="email"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': (f['email'].touched || submitted) && f['email'].errors }"
+          id="email"
+          formControlName="email"
+        >
+        <button type="button" class="btn-clear mr-4" (click)="onClear('email')">
+          <span class="icon icon-x icon-sm"></span>
+          <span class="sr-only">Vider le champ</span>
+        </button>
+        <div class="invalid-feedback mt-0" id="input-text-error-id">
+          <div aria-live="assertive" *ngIf="f['email'].errors">
+            <div *ngIf="submitted && f['email'].errors">
+              Email incorrect
+            </div>
+            <div *ngIf="f['email'].errors && f['email'].touched">
+              Veuillez saisir une adresse email valide.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6 md-6">
+    <div class="form-group has-clear">
+      <label for="form-group-input-clear">Mot de passe</label>
+      <div class="input-group-icon">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          [ngClass]="{ 'is-invalid': (f['password'].touched || submitted) && f['password'].errors }"
+          id="password"
+          minlength="8"
+          maxlength="15"
+        >
+        <button type="button" class="btn-clear mr-4" (click)="onClear('password')">
+          <span class="icon icon-x icon-sm"></span>
+          <span class="sr-only">Vider le champ</span>
+        </button>
+        <div class="invalid-feedback mt-0" id="input-text-error-id">
+          <div *ngIf="f['password'].errors" aria-live="assertive">
+            <div *ngIf="submitted && f['password'].errors">
+              Mot de passe incorrect
+            </div>
+            <div *ngIf="f['password'].errors && f['password'].touched">
+              Le mot de passe doit contenir au moins 8 caractères.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-grid">
+    <button
+    bao-button
+    type="submit"
+    displayType="utility"
+    level="primary"
+    [fullWidth]="true"
+    [attr.disabled]="(submitted && !form.valid) ? '' : null"
+  >
+    Créer compte
+  </button>
+  </div>
+
+</form>
