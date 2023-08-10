@@ -1,5 +1,5 @@
-import { Component, Inject, inject } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
-  private router = inject(Router);
+  private router = Inject(Router);
   public submitFormValue(form: UntypedFormGroup) {
     console.log('submit form value :', form.value);
 
