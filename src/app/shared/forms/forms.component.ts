@@ -34,7 +34,8 @@ export class FormsComponent {
     this.submitted = true;
     if (form.valid) {
       this.submitted = false;
-      return this.emitFormValue.emit(form);
+      this.emitFormValue.emit(form);
+      return this.form.reset();
     }
     return;
   }
