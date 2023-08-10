@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginPageComponent } from './login-page.component';
 import { SharedModule } from '../shared/shared-module.module';
+import { LoginPageRoutingModule } from './login-routing.module';
 
 
 
@@ -11,10 +12,9 @@ import { SharedModule } from '../shared/shared-module.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    LoginPageRoutingModule
   ],
-  exports: [
-    LoginPageComponent
-  ]
+  exports: []
 })
 export class LoginPageModule { }

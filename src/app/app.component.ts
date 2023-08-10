@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Authentification';
+
+  public onActivate() {
+    return true;
+  }
+
+  public onDeactivate() {
+    return false;
+  }
 }
