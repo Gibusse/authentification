@@ -1,6 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AccountService } from '../core/account.service';
+import { AuthResponse } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-login-page',
@@ -8,16 +10,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
-  private router = Inject(Router);
-  public submitFormValue(form: UntypedFormGroup) {
-    console.log('submit form value :', form.value);
+  private router = inject(Router);
+  private readonly accountServie = inject(AccountService);
 
-  // TODO # implement authentification
+  public async submitFormValue(form: UntypedFormGroup) {
+    console.log('submit form value :', form);
+    const { email, password } = form.value;
 
-    this.redirectToDashboard();
+    // TODO # implement authentification
+    const data: AuthResponse | null = await this.accountServie.signUp({ email, password});
+    if (data?.data) {
+      this.redirectToDashboard();
+    }
   }
 
   private redirectToDashboard () {
-    void this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard']);
   }
 }

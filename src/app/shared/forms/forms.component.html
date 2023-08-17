@@ -65,7 +65,7 @@
     displayType="utility"
     level="primary"
     [fullWidth]="true"
-    [attr.disabled]="(submitted && !form.valid) ? '' : null"
+    [disabled]="!form.valid"
   >
     Créer compte
   </button>
