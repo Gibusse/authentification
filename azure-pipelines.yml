@@ -16,7 +16,7 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    yarn global add @angular/cli
-    yarn install --force
-    yarn run build
+    yarn global add @angular/cli --ignore-engines
+    yarn install --force --ignore-engines
+    yarn run build --prod
   displayName: 'yarn install and build'
