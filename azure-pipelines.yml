@@ -17,6 +17,6 @@ steps:
 
 - script: |
     yarn global add @angular/cli
-    yarn install
-    yarn build
+    yarn install --force
+    yarn run build
   displayName: 'yarn install and build'
