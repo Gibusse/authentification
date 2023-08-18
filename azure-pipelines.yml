@@ -18,5 +18,5 @@ steps:
 - script: |
     yarn global add @angular/cli --ignore-engines
     yarn install --force --ignore-engines
-    yarn run build --prod
+    yarn run build
   displayName: 'yarn install and build'
