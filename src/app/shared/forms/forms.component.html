@@ -65,10 +65,22 @@
     displayType="utility"
     level="primary"
     [fullWidth]="true"
-    [attr.disabled]="(submitted && !form.valid) ? '' : null"
+    [disabled]="!form.valid"
+    *ngIf="!isLogin"
   >
     Créer compte
   </button>
+  <button
+  bao-button
+  type="submit"
+  displayType="utility"
+  level="primary"
+  [fullWidth]="true"
+  [disabled]="!form.valid"
+  *ngIf="isLogin"
+>
+  Se connecter
+</button>
   </div>
 
 </form>
