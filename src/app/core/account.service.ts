@@ -6,6 +6,8 @@ import { AuthChangeEvent, AuthResponse, AuthSession, Session, SupabaseClient, Us
 import { environment } from 'src/environments/environment';
 import { Profile } from '../shared/model/profile';
 import { LocalUserDefinition } from '../shared/model/user';
+import { v4 as uuidV4 } from 'uuid';
+import { LoginResponse } from '../shared/model/loginResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -37,16 +39,32 @@ export class AccountService {
     return this.supabase.auth.onAuthStateChange(callback);
    }
 
-   public signUp(data: LocalUserDefinition): Promise<AuthResponse | null> {
+   public async signUp(data: LocalUserDefinition): Promise<LoginResponse> {
     const { email, password } = data;
-    if (email && password) {
-      return Promise.resolve(this.supabase.auth.signUp({ email: email, password: password}));
+    const { data: userData } = await this.signInWithSelect(data);
+    if ((email && password ) && (!userData.user && !userData.session)) {
+      const insertWithAuth = await this.supabase.from('user').insert({id: uuidV4, created_at: Date.now, email, password });
+      const signUpWithAuth = await this.supabase.auth.signUp({ email: email, password: password });
+      return Promise.resolve({insertWithAuth, signUpWithAuth});
     }
-    return Promise.resolve(null)
+    return Promise.resolve({ insertWithAuth: {}, signUpWithAuth: {}})
    }
 
    public signIn(email: string) {
     return this.supabase.auth.signInWithOtp({ email });
+   }
+
+   public async signInWithSelect(data: LocalUserDefinition): Promise<any | null> {
+    const { email, password } = data;
+
+    if (email && password) {
+      return Promise.resolve(await this.supabase
+                                  .auth
+                                  .signInWithPassword({ email, password })
+                            );
+    }
+
+    return Promise.resolve(null);
    }
 
    public signOut() {
