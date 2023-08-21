@@ -6,8 +6,19 @@
         <div class="container">
           <div class="d-flex justify-content-around">
             <div class="col-md-9 col-lg-8">
-              <h1 class="d-flex justify-content-center mb-0">Créer son compte</h1>
-                <app-forms (emitFormValue)="submitFormValue($event)"></app-forms>
+              <h1 class="d-flex justify-content-center mb-0">Bienvenue</h1>
+              <div class="row list-unstyled">
+                <div class="col-xs-6 col-md-6">
+                  <div class="form-group ">
+                    <label for="custom-select">Veuillez-vous choisir une option</label>
+                    <select class="custom-select" (change)="isSignInOrSignUp($event)" name="custom-select" id="custom-select" aria-describedby="custom-select-help-text">
+                      <option value="signUp">Créer son compte</option>
+                      <option value="signIn">Se connecter</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <app-forms (emitFormValue)="submitFormValue($event)" [isLogin]="isLogin"></app-forms>
             </div>
           </div>
         </div>

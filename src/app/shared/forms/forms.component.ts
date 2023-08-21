@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { BaoModule } from '@villedemontreal/angular-ui';
 
@@ -21,6 +21,7 @@ export class FormsComponent {
     password: ['', Validators.required]
   });
   public submitted = false;
+  @Input() isLogin = false;
 
   @Output() emitFormValue = new EventEmitter<UntypedFormGroup>();
 
