@@ -7,8 +7,8 @@ export const environment = {
   name: 'local',
   authProvider: LocalAuthService,
   baseUrl: 'localhost:4200',
-  supabaseUrl: 'YOUR_SUPABASE_URL',
-  supabaseKey: 'YOUR_SUPABASE_KEY',
+  supabaseUrl: 'https://bmjoqhcrhtfhidcoulta.supabase.co',
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtam9xaGNyaHRmaGlkY291bHRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTIyMTIyOTksImV4cCI6MjAwNzc4ODI5OX0.97ku-gvKbzfGfadj84MzNo3yHDAM8dve9X7U8Ais3z4',
   authConfig: {
     // Url of the Identity Provider
     issuer: 'https://demo.identityserver.com/identity',
