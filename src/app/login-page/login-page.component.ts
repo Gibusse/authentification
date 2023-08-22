@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../core/account.service';
-import { AuthResponse } from '@supabase/supabase-js';
 import { LoginResponse } from '../shared/model/loginResponse';
 
 @Component({

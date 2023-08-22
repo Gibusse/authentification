@@ -36,9 +36,10 @@ export class FormsComponent {
     if (form.valid) {
       this.submitted = false;
       this.emitFormValue.emit(form);
-      return this.form.reset();
+      this.form.reset();
+      return form.valid;
     }
-    return;
+    return this.submitted = false;
   }
 
   public onClear(value: string) {
