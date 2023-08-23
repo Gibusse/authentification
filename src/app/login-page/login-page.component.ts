@@ -22,8 +22,8 @@ export class LoginPageComponent {
 
     // TODO # implement authentification
     if (this.isLogin) {
-      const { data: userData } = await this.accountServie.signInWithSelect({ email, password});
-      if (userData.user && userData.session) {
+      const isExists = await this.accountServie.signInWithSelect({ email, password});
+      if (isExists) {
         this.redirectToDashboard();
       }
     }

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsComponent } from './forms.component';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BaoModule } from '@villedemontreal/angular-ui';
 
@@ -9,7 +9,6 @@ describe('FormsComponent', () => {
   let component: FormsComponent;
   let fixture: ComponentFixture<FormsComponent>;
   let form: any;
-  let formBuilder: UntypedFormBuilder;
 
   beforeEach(async() => {
     TestBed.configureTestingModule({

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 // import { User } from '../shared/model/user';
 import { Observable } from 'rxjs';
-import { AuthChangeEvent, AuthResponse, AuthSession, Session, SupabaseClient, User, UserAttributes, createClient } from '@supabase/supabase-js';
+import { AuthChangeEvent, AuthSession, Session, SupabaseClient, User, UserAttributes, createClient } from '@supabase/supabase-js';
 import { environment } from 'src/environments/environment';
 import { Profile } from '../shared/model/profile';
 import { LocalUserDefinition } from '../shared/model/user';
@@ -41,10 +41,10 @@ export class AccountService {
 
    public async signUp(data: LocalUserDefinition): Promise<LoginResponse> {
     const { email, password } = data;
-    const { data: userData } = await this.signInWithSelect(data);
-    if ((email && password ) && (!userData.user && !userData.session)) {
+    const isExists = await this.signInWithSelect(data);
+    if ((email && password ) && !isExists) {
       const insertWithAuth = await this.supabase.from('user').insert({id: uuidV4, created_at: Date.now, email, password });
-      const signUpWithAuth = await this.supabase.auth.signUp({ email: email, password: password });
+      const signUpWithAuth = await this.supabase.auth.signUp({ email, password });
       return Promise.resolve({insertWithAuth, signUpWithAuth});
     }
     return Promise.resolve({ insertWithAuth: {}, signUpWithAuth: {}})
@@ -54,17 +54,18 @@ export class AccountService {
     return this.supabase.auth.signInWithOtp({ email });
    }
 
-   public async signInWithSelect(data: LocalUserDefinition): Promise<any | null> {
+   public async signInWithSelect(data: LocalUserDefinition): Promise<boolean> {
     const { email, password } = data;
 
     if (email && password) {
-      return Promise.resolve(await this.supabase
+      const { data } = await this.supabase
                                   .auth
                                   .signInWithPassword({ email, password })
-                            );
+      const response = !!(data.user && data.session);
+      return Promise.resolve(response);
     }
 
-    return Promise.resolve(null);
+    return Promise.resolve(false);
    }
 
    public signOut() {
