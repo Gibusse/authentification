@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../core/account.service';
-import { AuthResponse } from '@supabase/supabase-js';
 import { LoginResponse } from '../shared/model/loginResponse';
 
 @Component({
@@ -23,8 +22,8 @@ export class LoginPageComponent {
 
     // TODO # implement authentification
     if (this.isLogin) {
-      const { data: userData } = await this.accountServie.signInWithSelect({ email, password});
-      if (userData.user && userData.session) {
+      const isExists = await this.accountServie.signInWithSelect({ email, password});
+      if (isExists) {
         this.redirectToDashboard();
       }
     }
