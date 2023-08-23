@@ -27,6 +27,6 @@ steps:
 - task: PublishTestResults@2
   displayName: 'Publish Angular test results'
   inputs:
-    testResultsFiles: "TestResults/junit/TESTS*.xml"
+    testResultsFiles: "TestResults/junit/TESTS.xml"
     mergeTestResults: true
     testRunTitle: 'Angular Tests'
