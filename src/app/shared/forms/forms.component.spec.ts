@@ -1,33 +1,32 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsComponent } from './forms.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BaoModule } from '@villedemontreal/angular-ui';
 
 describe('FormsComponent', () => {
   let component: FormsComponent;
   let fixture: ComponentFixture<FormsComponent>;
-  let form: any;
+  let emitData: FormGroup;
+  const form = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+    valid: new FormControl(false)
+  });
 
   beforeEach(async() => {
-    TestBed.configureTestingModule({
-     // declarations: [FormsComponent],
+    await TestBed.configureTestingModule({
       imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         BaoModule
       ]
-    });
+    }).compileComponents();
     fixture = TestBed.createComponent(FormsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    form = {
-      email: '',
-      password:'',
-      valid: false
-    }
   });
 
   it('should create', () => {
@@ -35,16 +34,34 @@ describe('FormsComponent', () => {
   });
 
   it('Should output falsy result to the parent when submit empty data or with errors', async() => {
-    expect(component.onSubmit(form)).toBeFalsy();
+    form.setValue({
+      email: '',
+      password: '',
+      valid: false
+    });
+
+    const formToSubmit = form.value as UntypedFormGroup;
+    const response = component.onSubmit(formToSubmit);
+
+    expect(response).toBeFalsy();
   });
 
   it('Shoult output thruty result to the parent when submit form with data', async() => {
-    form = {
-      email:'test@test',
+    form.setValue({
+      email: 'test@test',
       password: '124dadf22558',
       valid: true
-    };
+    });
+
+    const button = fixture.nativeElement.querySelector('button');
+
+    component.emitFormValue.subscribe(data => emitData = data);
+    button.click();
+    fixture.detectChanges();
+
     const result = component.onSubmit(form);
-    expect(result).toBeTruthy()
+
+    expect(emitData).toEqual(form);
+    expect(result).toBeTruthy();
   });
 });
