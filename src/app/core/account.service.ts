@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-// import { User } from '../shared/model/user';
 import { Observable } from 'rxjs';
 import { AuthChangeEvent, AuthSession, Session, SupabaseClient, User, UserAttributes, createClient } from '@supabase/supabase-js';
 import { environment } from 'src/environments/environment';
@@ -60,7 +59,7 @@ export class AccountService {
     if (email && password) {
       const { data } = await this.supabase
                                   .auth
-                                  .signInWithPassword({ email, password })
+                                  .signInWithPassword({ email, password });
       const response = !!(data.user && data.session);
       return Promise.resolve(response);
     }
